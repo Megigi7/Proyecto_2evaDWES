@@ -12,8 +12,9 @@ class Estado extends Model{
         return self::all();
     }
 
-    public static function getEstadoById($id){
-        return self::find($id);
+    public static function getEstadoByClave($clave){
+        // $email = DB::table('users')->;
+        return self::where('clave', $clave)->first();
     }
 
 }

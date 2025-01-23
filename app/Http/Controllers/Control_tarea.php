@@ -44,9 +44,9 @@ class Control_tarea extends Controller
     public function show(string $id){
         //depende del id, se muestra la tarea de dicho id
         return view('detalles', ['tarea' => Tarea::getTareaById($id),
-                    //estado / cliente / provincia 
-                    
-        ]);
+                                'estado' => Estado::getEstadoByClave(Tarea::getTareaById($id)->estado),
+                                'cliente' => Cliente::getClientById(Tarea::getTareaById($id)->cliente),
+                                'provincia' => Provincia::getProvinciaByCod(Tarea::getTareaById($id)->provincia)]);
     }
 
     /* Show the form for editing the specified resource. */

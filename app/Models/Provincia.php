@@ -13,8 +13,8 @@ class Provincia extends Model{
     }
 
 
-    public static function getProvinciaById($id){
-        return self::find($id);
+    public static function getProvinciaByCod($codigo){
+        return self::where('codigo', $codigo)->first();
     }
 
     public static function createProvincia($data){
