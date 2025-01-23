@@ -11,7 +11,7 @@ class Control_login extends Controller
     public function check_user(Request $request){
         $usuario = $request->input('user');
         $password = $request->input('password');
-        $consulta = DB::table('empleado')->where('nombre', $usuario)->where('clave', $password)->get();
+        $consulta = DB::table('empleado')->where('usuario', $usuario)->where('clave', $password)->get();
         if(count($consulta) > 0){
             return view('inicio');
         }else{

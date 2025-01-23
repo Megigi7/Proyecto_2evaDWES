@@ -1,4 +1,4 @@
-/* General Styles */
+/* General Styles
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(to right, #e0f7fa, #80deea);
@@ -54,7 +54,7 @@ body {
 }
 
 .menu a:active {
-    background-color: #128e79; /* Dark green on active */
+    /* background-color: #128e79; 
     color: white;
 }
 
@@ -82,7 +82,7 @@ body {
     display: inline-block;
     padding: 10px 20px;
     margin: 5px 0;
-    background: linear-gradient(to right, #a4f1f8, #9af4cd); /* Gradient from cyan to green */
+    background: linear-gradient(to right, #a4f1f8, #9af4cd); /* Gradient from cyan to green 
     color: #1e5650;
     text-align: center;
     border-radius: 5px;
@@ -92,16 +92,17 @@ body {
 }
 
 button:hover {
-    background: linear-gradient(to right, #388e3c, #0e9184); /* Inverted gradient on hover */
+    background: linear-gradient(to right, #388e3c, #0e9184);
     color: white;
-    transform: scale(1.05); /* Slightly larger on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
-    filter: brightness(1.1); /* Slightly brighter on hover */
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    filter: brightness(1.1);
 }
 
 button:active {
-    background: linear-gradient(to right, #067f73, #2e7d32); /* Even darker gradient on active */
-    transform: scale(0.95); /* Slightly smaller on active */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow on active */
-    filter: brightness(0.9); /* Slightly darker on active */
+    background: linear-gradient(to right, #067f73, #2e7d32); 
+    transform: scale(0.95); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    filter: brightness(0.9); 
 }
+ */

@@ -1,0 +1,57 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Tarea extends Model
+{
+    // Define the table associated with the model
+    protected $table = 'tarea';
+
+    // Define the primary key for the table
+    protected $primaryKey = 'id';
+
+    // Specify which attributes should be mass-assignable
+    protected $fillable = ['cliente', 'nombre_cliente', 'tel_contacto', 'descripcion', 'correo', 'direccion', 'poblacion', 'codigo_postal', 'provincia', 'estado', 'empleado', 'fecha_creacion', 'fecha_realizacion', 'anotaciones_anteriores', 'anotaciones_posteriores', 'ficheros'];
+
+    // Method to get all clients
+    public static function getAllTareas()
+    {
+        return self::all();
+    }
+
+    // Method to get a client by ID
+    public static function getTareaById($id)
+    {
+        return self::find($id);
+    }
+
+    // Method to create a new client
+    public static function createTarea($data)
+    {
+        return self::create($data);
+    }
+
+    // Method to update a client by ID
+    public static function updateTarea($id, $data)
+    {
+        $tarea = self::find($id);
+        if ($tarea) {
+            $tarea->update($data);
+            return $tarea;
+        }
+        return null;
+    }
+
+    // Method to delete a client by ID
+    public static function deleteTarea($id)
+    {
+        $tarea = self::find($id);
+        if ($tarea) {
+            $tarea->delete();
+            return true;
+        }
+        return false;
+    }
+}
