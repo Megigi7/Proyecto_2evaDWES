@@ -15,23 +15,6 @@ class Tarea extends Model
     // Specify which attributes should be mass-assignable
     protected $fillable = ['cliente', 'nombre_cliente', 'tel_contacto', 'descripcion', 'correo', 'direccion', 'poblacion', 'codigo_postal', 'provincia', 'estado', 'empleado', 'fecha_creacion', 'fecha_realizacion', 'anotaciones_anteriores', 'anotaciones_posteriores', 'ficheros'];
 
-    // Method to get all clients
-    public static function getAllTareas()
-    {
-        return self::all();
-    }
-
-    // Method to get a client by ID
-    public static function getTareaById($id)
-    {
-        return self::find($id);
-    }
-
-    // Method to create a new client
-    public static function createTarea($data)
-    {
-        return self::create($data);
-    }
 
     // Method to update a client by ID
     public static function updateTarea($id, $data)

@@ -1,6 +1,9 @@
 @extends('layout.layout')
 
 @section('content')
+    <form action="{{ url('tarea/create') }}">
+        <input type="submit" value="Crear nueva tarea">
+    </form>    
 
     <h1>Lista de tareas</h1>
     
@@ -34,7 +37,7 @@
                 <td>
                     <a href="{{ url('tarea/' . $tarea->id) }}">Detalles</a>
                     <a href="{{ url('tarea/' . $tarea->id . '/edit') }}">Modificar</a>
-                    <a href="{{ url('tarea/' . $tarea->id . '/destroy') }}">Borrar</a>
+                    <a href="{{ url('confirmar_tarea/'. $tarea->id) }}">Borrar</a>
                 </td>
                 <td>{{ $tarea->id }}</td>
                 <td>{{ $tarea->cliente }}</td>

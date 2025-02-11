@@ -15,23 +15,6 @@ class Empleado extends Model
     // Specify which attributes should be mass-assignable
     protected $fillable = ['dni', 'nombre', 'correo', 'usuario', 'clave', 'telefono', 'direccion', 'fecha_alta', 'tipo'];
 
-    // Method to get all clients
-    public static function getAllEmpleados()
-    {
-        return self::all();
-    }
-
-    // Method to get a client by ID
-    public static function getEmpleadoById($id)
-    {
-        return self::find($id);
-    }
-
-    // Method to create a new client
-    public static function createEmpleado($data)
-    {
-        return self::create($data);
-    }
 
     // Method to update a client by ID
     public static function updateEmpleado($id, $data)

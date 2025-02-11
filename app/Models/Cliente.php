@@ -15,23 +15,8 @@ class Cliente extends Model
     // Specify which attributes should be mass-assignable
     protected $fillable = ['cif', 'nombre', 'telefono', 'correo', 'cuenta_corriente', 'pais', 'moneda', 'importe_cuota_mensual'];
 
-    // Method to get all clients
-    public static function getAllClients()
-    {
-        return self::all();
-    }
-
-    // Method to get a client by ID
-    public static function getClientById($id)
-    {
-        return self::find($id);
-    }
-
-    // Method to create a new client
-    public static function createClient($data)
-    {
-        return self::create($data);
-    }
+    //::all ::find($id) ::create($data); 
+    // PRIMERO FIND $client->update($data) $client->delete();
 
     // Method to update a client by ID
     public static function updateClient($id, $data)

@@ -1,11 +1,23 @@
 @extends('layout.layout')
 
 @section('content')
+    @if($errors->any())
+        {{ implode('', $errors->all('<div>:message</div>')) }}
+    @endif
+
+    <p>{{ session()->get('success') }}</p>
 
     <h2>Formulario de Alta de Tarea</h2>
 
-    <form action="/mi-proyecto-laravel/public/nueva_tarea" method="post">
+    <form @if($tipo=="nueva")
+            action="{{ url('tarea') }}" method="post"
+          @else
+            action="{{ route('tarea.update', $tarea->id) }}" method="post" 
+          @endif>
         @csrf
+        @if($tipo!="nueva")
+            @method('PUT')
+        @endif
         <p><b>Cliente</b> <br>Cliente que encarga el trabajo |
         <!-- select de la tabla bd cliente -->        
         <select name="cliente">
@@ -117,7 +129,7 @@
 
         <p><b>Operario Encargado</b><br>
         Nombre o identificación del operario encargado de la realización de la tarea |
-        <select name="operario">
+        <select name="empleado">
             @foreach($empleados as $empleado)
                 <option value="{{ $empleado->id }}" @if (old('operario')=="{{ $empleado->id }}") selected @endif >{{ $empleado->nombre }}</option>
             @endforeach

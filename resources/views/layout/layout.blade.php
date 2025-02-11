@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link  rel="stylesheet" type="text/css" href=" ../resources/css/layout.css"> -->
+    <link  rel="stylesheet" type="text/css" href="{{ asset('css/layout.css') }}">
     <title>Gestor de Datos</title>
 </head>
 <body>
@@ -15,8 +15,9 @@
     </div>
     <div class="menu">
         <a href="{{ url('inicio') }}"> ▸ Inicio</a>
-        <a href="{{ url('tarea') }}"> ▸ Ver Tareas</a>
-        <a href="{{ url('tarea/create') }}"> ▸ Añadir Tarea</a>
+        <a href="{{ url('tarea') }}"> ▸ Tareas</a>
+        <a href="{{ url('empleado') }}"> ▸ Empleados</a>
+        
     </div>
     <div class="container">
         @yield('content')
