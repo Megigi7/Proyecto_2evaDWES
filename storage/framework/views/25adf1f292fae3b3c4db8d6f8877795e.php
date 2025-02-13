@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="../resources/css/login.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('css/login.css')); ?>">
 </head>
 <body>
     <div class="login-container">

@@ -5,6 +5,8 @@ use App\Http\Controllers\Control_login;
 use App\Http\Controllers\Control_view;
 use App\Http\Controllers\Control_tarea;
 use App\Http\Controllers\Control_empleado;
+use App\Http\Controllers\Control_cliente;
+use App\Http\Controllers\Control_cuota;
 
 //login
 Route::get('/', [Control_view::class, 'login']);
@@ -25,3 +27,14 @@ Route::get('/confirmar_tarea/{id}', [Control_view::class, 'confirmar_tarea'] );
 Route::resource('empleado', Control_empleado::class);
 //confirmar borrado
 Route::get('/confirmar_empleado/{id}', [Control_view::class, 'confirmar_empleado'] );
+
+
+//cliente
+Route::resource('cliente', Control_cliente::class);
+//confirmar borrado
+Route::get('/confirmar_cliente/{id}', [Control_view::class, 'confirmar_cliente'] );
+
+//cuota
+Route::resource('cuota', Control_cuota::class);
+//confirmar cuota
+Route::get('/confirmar_cuota/{id}', [Control_view::class, 'confirmar_cuota'] );

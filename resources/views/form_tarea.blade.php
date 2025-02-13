@@ -2,12 +2,16 @@
 
 @section('content')
     @if($errors->any())
-        {{ implode('', $errors->all('<div>:message</div>')) }}
+        {{ implode('', $errors->all(':message')) }}
     @endif
 
     <p>{{ session()->get('success') }}</p>
 
-    <h2>Formulario de Alta de Tarea</h2>
+    @if($tipo=="nueva")
+        <h2>Formulario de Alta de Tarea</h2>
+    @else
+        <h2>Modificacion de Tarea</h2>
+    @endif
 
     <form @if($tipo=="nueva")
             action="{{ url('tarea') }}" method="post"

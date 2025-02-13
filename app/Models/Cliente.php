@@ -19,7 +19,7 @@ class Cliente extends Model
     // PRIMERO FIND $client->update($data) $client->delete();
 
     // Method to update a client by ID
-    public static function updateClient($id, $data)
+    public static function updateCliente($id, $data)
     {
         $client = self::find($id);
         if ($client) {
@@ -30,7 +30,7 @@ class Cliente extends Model
     }
 
     // Method to delete a client by ID
-    public static function deleteClient($id)
+    public static function deleteCliente($id)
     {
         $client = self::find($id);
         if ($client) {

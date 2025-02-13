@@ -5,7 +5,7 @@
         <input type="submit" value="Dar de alta">
     </form>    
 
-    <h1>Lista de empleados</h1>
+    <h1>Gestión de Empleados</h1>
     
 
     <table border="2">
@@ -28,8 +28,8 @@
         @foreach ($empleados as $empleado)
             <tr>
                 <td>
-                    <a href="{{ url('empleado/' . $empleado->id . '/edit') }}">Modificar</a>
-                    <a href="{{ url('confirmar_empleado/'. $empleado->id) }}">Dar de baja</a>
+                    <a href="{{ url('empleado/' . $empleado->id . '/edit') }}">✍</a>
+                    <a href="{{ url('confirmar_empleado/'. $empleado->id) }}">❌</a>
                 </td>
                 <td>{{ $empleado->id }}</td>
                 <td>{{ $empleado->dni }}</td>

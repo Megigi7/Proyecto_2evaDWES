@@ -8,14 +8,15 @@
     <p>{{ session()->get('success') }}</p>
 
     @if($tipo=="nueva")
-        <h2>Formulario de Alta de Empleado</h2>
+        <h2>Formulario de Alta de Cliente</h2>
     @else
-        <h2>Modificacion de Empleado</h2>
+        <h2>Modificacion de Cliente</h2>
     @endif
+
     <form @if($tipo=="nueva")
-            action="{{ url('empleado') }}" method="post"
+            action="{{ url('cliente') }}" method="post"
           @else
-            action="{{ route('empleado.update', $empleado->id) }}" method="post" 
+            action="{{ route('cliente.update', $cliente->id) }}" method="post" 
           @endif>
         @csrf
         @if($tipo!="nueva")
@@ -27,7 +28,7 @@
                     @if($tipo=='nueva')
                         value= "{{ old('dni') }}"
                     @else 
-                        value= "{{ $empleado->dni }}"
+                        value= "{{ $cliente->cif }}"
                     @endif></p>
         
         
@@ -37,7 +38,7 @@
                     @if($tipo=='nueva')
                         value= "{{ old('nombre') }}"
                     @else 
-                        value= "{{ $empleado->nombre }}"
+                        value= "{{ $cliente->nombre }}"
                     @endif></p>
         
         <p><b>Correo electrónico</b><br> |
@@ -45,7 +46,7 @@
                     @if($tipo=='nueva')
                         value="{{ old('correo') }}"
                     @else 
-                        value= "{{ $empleado->correo }}"
+                        value= "{{ $cliente->correo }}"
                     @endif></p>
 
 
@@ -54,52 +55,44 @@
                     @if($tipo=='nueva')
                         value="{{ old('telefono') }}"
                     @else 
-                        value= "{{ $empleado->telefono }}"
+                        value= "{{ $cliente->telefono }}"
                     @endif></p>
 
-        <p><b>Usuario</b><br> | 
-        <input type="text" name="usuario" 
+        <p><b>Cuenta corriente</b><br> | 
+        <input type="text" name="cuenta_corriente" 
                     @if($tipo=='nueva')
-                        value="{{ old('usuario') }}"
+                        value="{{ old('cuenta_corriente') }}"
                     @else 
-                        value= "{{ $empleado->usuario }}"
+                        value= "{{ $cliente->cuenta_corriente }}"
                     @endif></p>
                     
 
                
-        <p><b>Clave</b><br> |
-        <input type="text" name="clave" 
+        <p><b>Pais</b><br> |
+        <input type="text" name="pais" 
                     @if($tipo=='nueva')
-                        value="{{ old('clave') }}"
+                        value="{{ old('pais') }}"
                     @else 
-                        value= "{{ $empleado->clave }}"
+                        value= "{{ $cliente->pais }}"
                     @endif></p>
 
 
-        <p><b>Tipo</b><br> |
-        <select name="tipo_user">
-            @foreach($tipos as $tipo_user)
-                <option value="{{ $tipo_user }}" 
-                    @if($tipo=="nueva") 
-                        @if (old('tipo_user')=="{{ $tipo_user }}")
-                            selected 
-                        @endif 
-                    @else 
-                        @if("{{ $empleado->tipo }}"=="{{ $tipo_user }}")
-                            selected
-                        @endif 
-                    @endif >{{ $tipo_user }} </option>
-            @endforeach
-        </select> </p>
-
-
-
-        <p><b>Dirección</b><br> |
-        <input type="text" name="direccion"
+        <p><b>Moneda</b><br> |
+        <input type="text" name="moneda" 
                     @if($tipo=='nueva')
-                        value="{{ old('direccion') }}"
+                        value="{{ old('moneda') }}"
                     @else 
-                        value= "{{ $empleado->direccion }}"
+                        value= "{{ $cliente->moneda }}"
+                    @endif></p>
+
+
+
+        <p><b>Importe cuota mensual</b><br> |
+        <input type="text" name="importe"
+                    @if($tipo=='nueva')
+                        value="{{ old('importe') }}"
+                    @else 
+                        value= "{{ $cliente->importe_cuota_mensual }}"
                     @endif></p>
         
         <input type="submit" value="Guardar">

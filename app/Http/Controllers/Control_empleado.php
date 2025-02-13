@@ -100,6 +100,6 @@ class Control_empleado extends Controller
     /** Remove the specified resource from storage.*/
     public function destroy(string $id){
         Empleado::deleteEmpleado($id);
-        return redirect()->route('empleado.index')->with('success', 'Tarea eliminada correctamente.');
+        return redirect()->route('empleado.index')->with('success', 'Empleado eliminado correctamente.');
     }
 }

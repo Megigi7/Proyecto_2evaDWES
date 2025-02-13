@@ -43,8 +43,7 @@ body {
 .menu {
     background-color: #00284d; /* Azul oscuro */
     color: white;
-    width: 100px;
-    min-width: 150px;
+    width: 110px;
     height: 100%;
     position: fixed;
     top: 50px; /* Para no solaparse con el header */
@@ -69,7 +68,7 @@ body {
 
 /* Contenedor principal */
 .container {
-    margin-left: 160px; /* Espacio para el menú lateral */
+    margin-left: 120px; /* Espacio para el menú lateral */
     padding-top: 10px;
     padding-left: 40px;
     flex: 1;
@@ -91,4 +90,50 @@ body {
     bottom: 0;
     width: 100%;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Tablas */
+.container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+.container table th, .container table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.container table th {
+    background-color: #003366;
+    color: white;
+}
+
+.container table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.container table tr:hover {
+    background-color: #e9f5ff;
+}
+
+/* Botones */
+.container .btn {
+    background-color: #0066cc; /* Azul más claro */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 0;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.container .btn:hover {
+    background-color: #004a99; /* Azul intermedio */
 }

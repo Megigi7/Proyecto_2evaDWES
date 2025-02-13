@@ -17,7 +17,9 @@
         <a href="{{ url('inicio') }}"> ▸ Inicio</a>
         <a href="{{ url('tarea') }}"> ▸ Tareas</a>
         <a href="{{ url('empleado') }}"> ▸ Empleados</a>
-        
+        <a href="{{ url('cliente') }}"> ▸ Clientes</a>
+        <a href="{{ url('cuota') }}"> ▸ Cuotas</a>
+
     </div>
     <div class="container">
         @yield('content')

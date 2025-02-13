@@ -21,4 +21,12 @@ class Control_view extends Controller
     public function confirmar_empleado($id){
         return view('confirmacion_empleado',['id'=>$id]);
     }
+
+    public function confirmar_cliente($id){
+        return view('confirmacion_cliente',['id'=>$id]);
+    }
+
+    public function confirmar_cuota($id){
+        return view('confirmacion_cuota',['id'=>$id]);
+    }
 }

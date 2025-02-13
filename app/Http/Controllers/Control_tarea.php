@@ -42,9 +42,9 @@ class Control_tarea extends Controller
             'provincia' => 'required|max:100|exists:provincia,codigo',
             'estado' => 'required|max:50|exists:estado,clave',
             'empleado' => 'required|max:11|exists:empleado,id',
-            'fecha_realizacion' => 'required|date',
-            'anotaciones_anteriores' => 'max:65535|string',
-            'anotaciones_posteriores' => 'max:65535|string',
+            'fecha_realizacion' => 'required|date|after:today',
+            'anotaciones_anteriores' => 'max:65535',
+            'anotaciones_posteriores' => 'max:65535',
             'ficheros'=> 'max:65535',
         ]);
 
