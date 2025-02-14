@@ -1,4 +1,4 @@
-@extends('layout.layout')
+@extends('layouts.layout')
 
 @section('content')
     <h2>Detalles de la tarea {{ $tarea->id }}</h2>

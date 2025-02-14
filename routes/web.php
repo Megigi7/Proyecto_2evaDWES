@@ -7,11 +7,18 @@ use App\Http\Controllers\Control_tarea;
 use App\Http\Controllers\Control_empleado;
 use App\Http\Controllers\Control_cliente;
 use App\Http\Controllers\Control_cuota;
+use Illuminate\Support\Facades\Auth;
 
-//login
-Route::get('/', [Control_view::class, 'login']);
-Route::get('/login', [Control_view::class, 'login']);
-Route::post('/login', [Control_login::class, 'check_user']);
+Auth::routes();
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+// //login
+// Route::get('/', [Control_view::class, 'login']);
+// Route::get('/login', [Control_view::class, 'login']);
+// Route::post('/login', [Control_login::class, 'check_user']);
 
 //inicio
 Route::get('/inicio', [Control_view::class, 'inicio']);
@@ -38,3 +45,4 @@ Route::get('/confirmar_cliente/{id}', [Control_view::class, 'confirmar_cliente']
 Route::resource('cuota', Control_cuota::class);
 //confirmar cuota
 Route::get('/confirmar_cuota/{id}', [Control_view::class, 'confirmar_cuota'] );
+
