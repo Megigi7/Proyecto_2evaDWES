@@ -2,11 +2,27 @@
 
 @section('content')
     @if($errors->any())
-        {{ implode('', $errors->all(':message')) }}
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
     @endif
 
-    <p>{{ session()->get('success') }}</p>
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+        
     @if($tipo=="nueva")
         <h2>Formulario de Alta de Cliente</h2>
     @else
@@ -69,21 +85,36 @@
 
                
         <p><b>Pais</b><br> |
-        <input type="text" name="pais" 
+        <select name="pais" id="paisSelect" onchange="updateCurrency()">
+            @foreach($paises as $pais)
+                <option value="{{ $pais->nombre }}" data-currency="{{ $pais->currency }}"
                     @if($tipo=='nueva')
-                        value="{{ old('pais') }}"
-                    @else 
-                        value= "{{ $cliente->pais }}"
-                    @endif></p>
-
+                        {{ old('pais') == $pais->nombre ? 'selected' : '' }}
+                    @else
+                        {{ $cliente->pais == $pais->nombre ? 'selected' : '' }}
+                    @endif
+                >{{ $pais->nombre }}</option>
+            @endforeach
+        </select></p>
 
         <p><b>Moneda</b><br> |
-        <input type="text" name="moneda" 
+        <input type="text" name="moneda" id="monedaInput" readonly
                     @if($tipo=='nueva')
                         value="{{ old('moneda') }}"
                     @else 
                         value= "{{ $cliente->moneda }}"
                     @endif></p>
+
+        <script>
+            function updateCurrency() {
+                const paisSelect = document.getElementById('paisSelect');
+                const monedaInput = document.getElementById('monedaInput');
+                const selectedOption = paisSelect.options[paisSelect.selectedIndex];
+                monedaInput.value = selectedOption.dataset.currency;
+            }
+            // Initialize currency on page load
+            document.addEventListener('DOMContentLoaded', updateCurrency);
+        </script>
 
 
 
@@ -95,7 +126,7 @@
                         value= "{{ $cliente->importe_cuota_mensual }}"
                     @endif></p>
         
-        <input type="submit" value="Guardar">
+        <br><input type="submit" value="Guardar">
     </form>
 
 @endsection

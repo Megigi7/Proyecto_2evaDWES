@@ -17,8 +17,6 @@
                 <th>Nombre</th>
                 <th>Correo</th>
                 <th>Teléfono</th>
-                <th>Usuario</th>
-                <th>Clave</th>
                 <th>Tipo</th>
                 <th>Dirección</th>
                 <th>Fecha de alta</th>
@@ -36,9 +34,7 @@
                 <td>{{ $empleado->nombre }}</td>
                 <td>{{ $empleado->correo }}</td>
                 <td>{{ $empleado->telefono }}</td>
-                <td>{{ $empleado->usuario }}</td>
-                <td>{{ $empleado->clave }}</td>
-                <td>{{ $empleado->tipo }}</td>
+                <td>{{ $empleado->user->role }}</td>
                 <td>{{ $empleado->direccion }}</td>
                 <td>{{ $empleado->fecha_alta }}</td>
             </tr>

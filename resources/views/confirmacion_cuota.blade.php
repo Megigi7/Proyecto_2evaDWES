@@ -7,7 +7,7 @@
     @csrf
     @method('DELETE')
     
-    <button type="submit" onclick="return confirm('¿Estás seguro de eliminar esta cuota?')">
+    <button type="submit">
         Sí, eliminar
     </button>
     <a href="{{ url('cuota') }}">No, cancelar</a>

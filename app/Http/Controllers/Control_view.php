@@ -29,4 +29,5 @@ class Control_view extends Controller
     public function confirmar_cuota($id){
         return view('confirmacion_cuota',['id'=>$id]);
     }
+
 }

@@ -7,7 +7,7 @@
     @csrf
     @method('DELETE')
     
-    <button type="submit" onclick="return confirm('¿Estás seguro de dar de baja a este empleado?')">
+    <button type="submit">
         Sí, eliminar
     </button>
     <a href="{{ url('empleado') }}">No, cancelar</a>

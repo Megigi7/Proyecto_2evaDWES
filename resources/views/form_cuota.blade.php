@@ -2,11 +2,27 @@
 
 @section('content')
     @if($errors->any())
-        {{ implode('', $errors->all(':message')) }}
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
     @endif
 
-    <p>{{ session()->get('success') }}</p>
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    
     @if($tipo=="nueva")
         <h2>Nueva cuota</h2>
     @else
@@ -93,10 +109,18 @@
                     @endif > </p>
 
 
+        <!-- <p><b>Importe en EUR</b></p>
+        <input type="text" name="importe_eur" disabled  
+                    @if($tipo=='nueva')
+                        value="{{ old('importe_eur') }}"
+                    @else 
+                        value= "{{ $cuota->importe_eur }}"
+                    @endif> -->
+
         <p><b>Notas</b><br>
         <textarea name="notas"@if($tipo=='nueva')value="{{old('notas')}}"@else value= "{{$cuota->notas}}"@endif></textarea></p>
         
-        <input type="submit" value="Guardar">
+        <br><input type="submit" value="Guardar">
     </form>
 
 @endsection

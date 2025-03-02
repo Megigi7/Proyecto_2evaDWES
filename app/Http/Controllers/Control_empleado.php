@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Empleado;
+use App\Models\User;
 
 class Control_empleado extends Controller
 {
-    public $tipos = ['Operario', 'Administrador'];
+    public $tipos = ['user', 'admin'];
     public function getTipos() {
         return $this->tipos;
     }
@@ -16,7 +17,8 @@ class Control_empleado extends Controller
      * Display a listing of the resource.
      */
     public function index(){
-        return view('empleados', ['empleados' => Empleado::all()]);
+        return view('empleados', ['empleados' => Empleado::all(),
+                                ]);
     }
 
     /**
@@ -35,22 +37,28 @@ class Control_empleado extends Controller
             'dni' => 'required|max:20|unique:empleado,dni', 
             'nombre' => 'required|max:255',
             'correo' => 'required|max:255|email|unique:empleado,correo',
-            'usuario' => 'required|max:100|unique:empleado,usuario',
-            'clave' => 'required|max:255',
+            'clave' => 'required|max:255|min:8',
             'telefono' => 'required|max:50|unique:empleado,telefono',
             'direccion' => 'required|max:65535',
-            'tipo_user' => 'required|max:50|in:' . implode(',', $this->getTipos())
+            'tipo_user' => 'required|max:50|in:' . implode(',', $this->getTipos()),
+            'fecha_alta' =>'required|datetime',
         ]);
 
         Empleado::create([
             'dni' => $request->dni,
             'nombre' => $request->nombre,
             'correo' => $request->correo,
-            'usuario' => $request->usuario,
-            'clave' => $request->clave,
             'telefono' => $request->telefono,
             'direccion' => $request->direccion,
-            'tipo' => $request->tipo_user
+            'fecha_alta' => $request->fecha_alta,
+        ]);
+
+        User::create([
+            'id' => Empleado::latest()->first()->id,
+            'name' => $request->nombre,
+            'email' => $request->correo,
+            'password' => $request->clave,
+            'role' => $request->tipo_user,
         ]);
 
         // Redirigir con un mensaje de éxito
@@ -76,24 +84,30 @@ class Control_empleado extends Controller
             'dni' => 'required|max:20', 
             'nombre' => 'required|max:255',
             'correo' => 'required|max:255|email',
-            'usuario' => 'required|max:100',
-            'clave' => 'required|max:255',
+            'clave' => 'required|max:255|min:8',
             'telefono' => 'required|max:50',
             'direccion' => 'required|max:65535',
-            'tipo_user' => 'required|max:50|in:' . implode(',', $this->getTipos())
+            'tipo_user' => 'required|max:50|in:' . implode(',', $this->getTipos()),
+            'fecha_alta' =>'required|datetime',
         ]);
 
         $data = [
             'dni' => $request->dni,
             'nombre' => $request->nombre,
             'correo' => $request->correo,
-            'usuario' => $request->usuario,
-            'clave' => $request->clave,
             'telefono' => $request->telefono,
             'direccion' => $request->direccion,
-            'tipo' => $request->tipo_user];
+            'fecha_alta' => $request->fecha_alta];
 
         Empleado::updateEmpleado($id, $data);
+
+        $user = User::find($id);
+        $user->name = $request->nombre;
+        $user->email = $request->correo;
+        $user->password = $request->clave;
+        $user->role = $request->tipo_user;
+        $user->save();
+
         return redirect()->back()->with('success', 'Datos de empleado actualizados correctamente.');
     }
 
@@ -102,4 +116,37 @@ class Control_empleado extends Controller
         Empleado::deleteEmpleado($id);
         return redirect()->route('empleado.index')->with('success', 'Empleado eliminado correctamente.');
     }
+
+    public function ver_tu_cuenta(string $id){
+        return view('form_empleado', ['tipo' => 'modif',
+                                      'empleado' => Empleado::find($id),]);
+    }
+
+    public function actualiza_tu_cuenta(Request $request, string $id){
+        $request->validate([
+            'nombre' => 'required|max:255',
+            'correo' => 'required|max:255|email',
+            'telefono' => 'required|max:50',
+            'direccion' => 'required|max:65535',
+            'fecha_alta' => 'required|date',
+        ]);
+        $empleado = Empleado::findOrFail($id);
+
+        $empleado -> update([
+            'nombre' => $request->nombre,
+            'correo' => $request->correo,
+            'telefono' => $request->telefono,
+            'direccion' => $request->direccion,
+            'fecha_alta' => $request->fecha_alta]);
+
+        $user = User::find($id);
+        $user->name = $request->nombre;
+        $user->email = $request->correo;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Datos actualizados correctamente.');
+        
+    }
+
+
 }

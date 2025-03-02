@@ -7,7 +7,7 @@
     @csrf
     @method('DELETE')
     
-    <button type="submit" onclick="return confirm('¿Estás seguro de eliminar esta tarea?')">
+    <button type="submit">
         Sí, eliminar
     </button>
     <a href="{{ url('tarea') }}">No, cancelar</a>

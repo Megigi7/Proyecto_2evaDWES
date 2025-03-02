@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\Control_cuota;
 
 class Cuota extends Model
 {
@@ -13,14 +14,13 @@ class Cuota extends Model
     protected $primaryKey = 'id';
 
     // Specify which attributes should be mass-assignable
-    protected $fillable = ['cliente', 'concepto', 'fecha_emision', 'importe', 'pagada', 'fecha_pago', 'notas', 'created_at', 'updated_at'];
+    protected $fillable = ['cliente', 'concepto', 'fecha_emision', 'importe', 'pagada', 'fecha_pago', 'importe_EUR','notas', 'created_at', 'updated_at'];
 
     //::all ::find($id) ::create($data); 
     // PRIMERO FIND $cuota->update($data) $cuota->delete();
 
     // Method to update a cuota by ID
-    public static function updateCuota($id, $data)
-    {
+    public static function updateCuota($id, $data){
         $cuota = self::find($id);
         if ($cuota) {
             $cuota->update($data);
@@ -30,13 +30,22 @@ class Cuota extends Model
     }
 
     // Method to delete a cuota by ID
-    public static function deleteCuota($id)
-    {
+    public static function deleteCuota($id){
         $cuota = self::find($id);
         if ($cuota) {
             $cuota->delete();
             return true;
         }
         return false;
+    }
+
+    public static function getRemesa($concepto){
+
+    }
+
+
+    public function clientes()
+    {
+        return $this->hasMany(Cliente::class, 'id', 'cliente');
     }
 }

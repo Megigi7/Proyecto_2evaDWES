@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Empleado extends Model
 {
@@ -13,12 +14,11 @@ class Empleado extends Model
     protected $primaryKey = 'id';
 
     // Specify which attributes should be mass-assignable
-    protected $fillable = ['dni', 'nombre', 'correo', 'usuario', 'clave', 'telefono', 'direccion', 'fecha_alta', 'tipo'];
+    protected $fillable = ['dni', 'nombre', 'correo','telefono', 'direccion', 'fecha_alta'];
 
 
     // Method to update a client by ID
-    public static function updateEmpleado($id, $data)
-    {
+    public static function updateEmpleado($id, $data){
         $empleado = self::find($id);
         if ($empleado) {
             $empleado->update($data);
@@ -37,4 +37,9 @@ class Empleado extends Model
         }
         return false;
     }
+
+    public function user(): HasOne{
+        return $this->hasOne(User::class, 'id');
+    }
+
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cliente;
+use App\Models\Pais;
 
 
 class Control_cliente extends Controller
@@ -16,7 +17,8 @@ class Control_cliente extends Controller
 
     /* Show the form for creating a new resource. */
     public function create(){
-        return view('form_cliente', ['tipo' => 'nueva',]);
+        return view('form_cliente', ['tipo' => 'nueva',
+                                     'paises' => Pais::all()]);
     }
 
     /**
@@ -51,14 +53,15 @@ class Control_cliente extends Controller
     }
 
     /**Display the specified resource.*/
-    // public function show(string $id){
-    //     //
-    // }
+    public function show(string $id){
+        //
+    }
 
     /** Show the form for editing the specified resource.*/
     public function edit(string $id){
         return view('form_cliente', ['tipo' => 'modificar',
-                                     'cliente' => Cliente::find($id)]); 
+                                     'cliente' => Cliente::find($id),
+                                     'paises' => Pais::all()]); 
     }
 
     /** Update the specified resource in storage.*/

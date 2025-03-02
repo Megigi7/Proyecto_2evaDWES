@@ -6,11 +6,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+
 
     /**
      * The attributes that are mass assignable.
@@ -18,10 +21,22 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
+        'role'
     ];
+
+    // EJEMPLO CREACION ------------------------ 
+    // User:create([
+    //     'name' => 'Admin', .......])
+
+    // EJEMPLO ACTUALIZACION -------------------
+    // $user = User::find(x)
+    // $user->name = 'Admin'
+    // $user->save()
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -45,4 +60,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function empleado(): HasOne
+    {
+        return $this->hasOne(Empleado::class, 'id');
+    }
+
+    public function hasRole($role)
+    {
+        return $this->role === $role;
+    }
+
 }

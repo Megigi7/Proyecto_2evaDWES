@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use \Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Tarea extends Model
 {
@@ -37,4 +38,11 @@ class Tarea extends Model
         }
         return false;
     }
+
+    
+    public function cliente(): HasOne
+    {
+        return $this->hasOne(Cliente::class, 'id', 'cliente');
+    }
+
 }

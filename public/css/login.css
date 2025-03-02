@@ -12,6 +12,27 @@ body {
     color: #333;
 }
 
+/* Navbar */
+.navbar {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 2px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    text-align: center;
+}
+
+.navbar h2{
+    color: white;
+    text-decoration: none;
+    padding: 2px;
+    display: inline-block;
+}
+
+
+/* Login Container */
 .login-container {
     background: rgba(255, 255, 255, 0.9);
     padding: 30px;
@@ -22,6 +43,7 @@ body {
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     animation: fadeIn 1s ease-in-out;
+    margin-top: 60px; /* Adjust for navbar */
 }
 
 .login-container h2 {
@@ -32,7 +54,8 @@ body {
 }
 
 .login-container input[type="text"],
-.login-container input[type="password"] {
+.login-container input[type="password"],
+.login-container input[type="email"] {
     width: 100%;
     padding: 12px;
     margin: 15px 0;
@@ -45,7 +68,8 @@ body {
 }
 
 .login-container input[type="text"]:focus,
-.login-container input[type="password"]:focus {
+.login-container input[type="password"]:focus,
+.login-container input[type="email"]:focus {
     border-color: #0078d7;
     box-shadow: 0 0 8px rgba(0, 120, 215, 0.5);
     outline: none;

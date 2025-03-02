@@ -8,13 +8,21 @@ use App\Models\Empleado;
 use App\Models\Tarea;
 use App\Models\Provincia;
 use App\Models\Estado;
+use Illuminate\Support\Facades\Auth;
 
 
 class Control_tarea extends Controller
 {
-    /* Display a listing of the resource.*/
-    public function index(){
-        return view('tareas', ['tareas' => Tarea::all()]);
+
+    public function index()
+    {
+        $user = Auth::user(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if ($user->role == 'user') {
+            $tareas = Tarea::where('empleado', $user->id)->get();
+        } else {
+            $tareas = Tarea::all();
+        }
+        return view('tareas', ['tareas' => $tareas, 'role' => $user->role]);
     }
 
     /* Show the form for creating a new resource.*/
@@ -33,12 +41,12 @@ class Control_tarea extends Controller
         $request->validate([
             'cliente' => 'required|max:255|exists:cliente,id', 
             'nombre_cliente' => 'required|string|max:255',
-            'tel_s_contacto' => 'required|string|max:50',
+            'tel_s_contacto' => 'required|string|max:50|regex:/^[\d\s\-\.\(\)\+]+$/',
             'correo' => 'required|max:255|string|email',
             'descripcion' => 'required|string|max:65535',
             'direccion' => 'required|string|max:65535',
             'poblacion' => 'required|string|max:100',
-            'codigo_postal' => 'required|string|max:20',
+            'codigo_postal' => 'required|string|max:5',
             'provincia' => 'required|max:100|exists:provincia,codigo',
             'estado' => 'required|max:50|exists:estado,clave',
             'empleado' => 'required|max:11|exists:empleado,id',
@@ -96,18 +104,18 @@ class Control_tarea extends Controller
         $request->validate([
             'cliente' => 'required|max:255|exists:cliente,id', 
             'nombre_cliente' => 'required|string|max:255',
-            'tel_s_contacto' => 'required|string|max:50',
+            'tel_s_contacto' => 'required|string|max:50|regex:/^[\d\s\-\.\(\)\+]+$/',
             'correo' => 'required|max:255|string|email',
             'descripcion' => 'required|string|max:65535',
             'direccion' => 'required|string|max:65535',
             'poblacion' => 'required|string|max:100',
-            'codigo_postal' => 'required|string|max:20',
+            'codigo_postal' => 'required|string|max:5',
             'provincia' => 'required|max:100|exists:provincia,codigo',
             'estado' => 'required|max:50|exists:estado,clave',
             'empleado' => 'required|max:11|exists:empleado,id',
             'fecha_realizacion' => 'required|date',
-            'anotaciones_anteriores' => 'max:65535|string',
-            'anotaciones_posteriores' => 'max:65535|string',
+            'anotaciones_anteriores' => 'max:65535',
+            'anotaciones_posteriores' => 'max:65535',
             'ficheros'=> 'max:65535',
         ]);
         
@@ -140,4 +148,75 @@ class Control_tarea extends Controller
         Tarea::deleteTarea($id);
         return redirect()->route('tarea.index')->with('success', 'Tarea eliminada correctamente.');
     }
+
+
+    public function incidencia(){
+        return view('form_tarea_cliente', ['clientes' => Cliente::all(),
+                                           'provincias' => Provincia::getAllProvincias()]);
+    }
+
+    public function new_incidencia(Request $request){
+        $cliente = Cliente::find($request->cliente);
+        echo $cliente;
+        if (!$cliente || $cliente->telefono !== $request->tel_s_contacto || $cliente->cif !== $request->cif) {
+            return redirect()->back()->withInput()->with('error', 'Los datos del cliente no coinciden con nuestros registros.');
+        }
+
+        $request->validate([
+            'cliente' =>'required|max:255|exists:cliente,id',
+            'nombre_cliente' =>'required|string|max:255',
+            'tel_s_contacto' =>'required|string|max:50|regex:/^[\d\s\-\.\(\)\+]+$/',
+            'correo' =>'required|max:255|string|email|',
+            'descripcion' =>'required|string|max:65535',
+            'direccion' =>'required|string|max:65535',
+            'poblacion' =>'required|string|max:100',
+            'codigo_postal' =>'required|string|max:5',
+            'provincia' =>'required|max:100|exists:provincia,codigo',
+            'fecha_realizacion' =>'required|date|after:today',
+            'anotaciones_anteriores' =>'max:65535',
+        ]);
+
+        Tarea::create([
+            'cliente' => $request->cliente,  // Enviar cliente en la inserción
+            'nombre_cliente' => $request->nombre_cliente,
+            'tel_contacto' => $request->tel_s_contacto,
+            'correo' => $request->correo,
+            'descripcion' => $request->descripcion,
+            'direccion' => $request->direccion,
+            'poblacion' => $request->poblacion,
+            'codigo_postal' => $request->codigo_postal,
+            'provincia' => $request->provincia,
+            'estado' => 'E',
+            'empleado' => null,
+            'fecha_realizacion' => $request->fecha_realizacion,
+            'anotaciones_anteriores' => null,
+            'anotaciones_posteriores' => null,
+            'ficheros'=> null
+        ]);
+        return redirect()->back()->with('success', 'Tarea creada correctamente.');
+    }
+
+    public function completar(Request $request, string $id){
+        $request->validate([
+            'estado' =>'required|max:50|exists:estado,clave',
+            'fecha_realizacion' => 'required|date',
+            'anotaciones_anteriores' => 'nullable|max:65535',
+            'anotaciones_posteriores' => 'nullable|max:65535',
+            'ficheros'=> 'max:65535',
+        ]);
+        
+        $tarea = Tarea::findOrFail($id);
+    
+        // Update only the fields that operators can modify
+        $tarea->update([
+            'estado' => $request->estado,
+            'fecha_realizacion' => $request->fecha_realizacion,
+            'anotaciones_anteriores' => $request->anotaciones_anteriores,
+            'anotaciones_posteriores' => $request->anotaciones_posteriores,
+            'ficheros' => $request->ficheros
+        ]);
+        
+        return redirect()->back()->with('success', 'Tarea actualizada correctamente.');
+    }
+
 }

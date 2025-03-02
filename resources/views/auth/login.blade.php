@@ -1,12 +1,20 @@
+<!-- Breeze
+JetStream
+
+return $this->
+
+Auth::user()->usuario->
+
+if(! $request->user()->hasRole($role)){
+	redirect inicio //PARA CONTROLADORES PARA LIMITAR ACCESO -->
+
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="login-container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf

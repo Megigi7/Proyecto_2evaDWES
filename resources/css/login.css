@@ -1,4 +1,8 @@
 /* General Styles */
+
+/* ESTE NOOOOOOOOOOOOOOOOOOOOOOO EN PUBLICCCCCCCCCCCCCCCCCC */
+
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: url('img/fondo.jpeg') no-repeat center center fixed;
@@ -12,16 +16,19 @@ body {
     color: #333;
 }
 
+
+/* Login Container */
 .login-container {
     background: rgba(255, 255, 255, 0.9);
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    text-align: center;
+    text-align: left;
     width: 350px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     animation: fadeIn 1s ease-in-out;
+    margin-top: 150px; /* Adjust for navbar */
 }
 
 .login-container h2 {
@@ -31,7 +38,6 @@ body {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-.login-container input[type="text"],
 .login-container input[type="password"],
 .login-container input[type="email"] {
     width: 100%;
@@ -45,7 +51,6 @@ body {
     background: rgba(255, 255, 255, 0.8);
 }
 
-.login-container input[type="text"]:focus,
 .login-container input[type="password"]:focus,
 .login-container input[type="email"]:focus {
     border-color: #0078d7;

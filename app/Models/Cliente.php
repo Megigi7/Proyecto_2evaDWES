@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cliente extends Model
 {
@@ -19,8 +21,7 @@ class Cliente extends Model
     // PRIMERO FIND $client->update($data) $client->delete();
 
     // Method to update a client by ID
-    public static function updateCliente($id, $data)
-    {
+    public static function updateCliente($id, $data){
         $client = self::find($id);
         if ($client) {
             $client->update($data);
@@ -30,8 +31,7 @@ class Cliente extends Model
     }
 
     // Method to delete a client by ID
-    public static function deleteCliente($id)
-    {
+    public static function deleteCliente($id){
         $client = self::find($id);
         if ($client) {
             $client->delete();
@@ -39,4 +39,22 @@ class Cliente extends Model
         }
         return false;
     }
+
+    // Has one pais
+    public function pais(): HasOne
+    {
+        return $this->hasOne(Pais::class, 'pais', 'codigo_iso');
+    }
+
+        // Has many cuotas
+    public function cuota(): HasMany
+    {
+        return $this->hasMany(Cuota::class, 'id', 'cuota');
+    }
+
+    public function tarea(): HasMany
+    {
+        return $this->hasMany(Tarea::class, 'id', 'cliente');
+    }
+
 }
