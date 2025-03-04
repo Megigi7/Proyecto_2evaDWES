@@ -65,6 +65,7 @@
                     <a href="{{ route('cuota.factura', $cuota->id) }}">📄</a>
                     <a href="{{ url('cuota/' . $cuota->id . '/edit') }}">✍</a>
                     <a href="{{ url('confirmar_cuota/'. $cuota->id) }}">❌</a>
+                    <a href="{{ url('cuota/'. $cuota->id . '/pagar' )}}">💸</a>
                 </td>
                 <td>{{ $cuota->id }}</td>
                 <td>{{ $cuota->cliente }}</td>

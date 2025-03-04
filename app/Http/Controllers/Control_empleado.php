@@ -144,9 +144,10 @@ class Control_empleado extends Controller
         $user->email = $request->correo;
         $user->save();
 
-        return redirect()->back()->with('success', 'Datos actualizados correctamente.');
-        
+        return redirect()->back()->with('success', 'Datos actualizados correctamente.');     
     }
+
+    
 
 
 }

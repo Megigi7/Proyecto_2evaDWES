@@ -8,6 +8,8 @@ use App\Http\Controllers\Control_cliente;
 use App\Http\Controllers\Control_cuota;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\CheckRole;
+use App\Http\Controllers\PayPalController;
+
 
 Auth::routes();
 
@@ -23,6 +25,9 @@ Route::post('/incidencia', [Control_tarea::class, 'new_incidencia']);
 // Route::apiResource('empleado', Control_empleado::class);
 // Route::apiResource('cuota', Control_cuota::class);
 
+Route::get('/vue', function() {
+    return view('vista_vue');
+});
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/inicio', [Control_view::class, 'inicio']);
@@ -44,10 +49,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/confirmar_cliente/{id}', [Control_view::class, 'confirmar_cliente']);
         Route::get('/confirmar_cuota/{id}', [Control_view::class, 'confirmar_cuota']);
 
+        Route::get('/cuota/{id}/pagar', [Control_cuota::class, 'mostrar_pagar'])->name('cuota.pagar');
         Route::get('/cuota/{id}/factura', [Control_cuota::class, 'crearFactura'])->name('cuota.factura');
+        
+        //paypal
+        Route::get('/paypal/pay/{id}', [PayPalController::class, 'createPayment'])->name('paypal.pay');
+        Route::get('/paypal/success', [PayPalController::class, 'successPayment'])->name('paypal.success');
+        Route::get('/paypal/cancel', [PayPalController::class, 'cancelPayment'])->name('paypal.cancel');
 
     });
 
 });
-
-

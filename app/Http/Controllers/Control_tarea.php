@@ -157,7 +157,6 @@ class Control_tarea extends Controller
 
     public function new_incidencia(Request $request){
         $cliente = Cliente::find($request->cliente);
-        echo $cliente;
         if (!$cliente || $cliente->telefono !== $request->tel_s_contacto || $cliente->cif !== $request->cif) {
             return redirect()->back()->withInput()->with('error', 'Los datos del cliente no coinciden con nuestros registros.');
         }

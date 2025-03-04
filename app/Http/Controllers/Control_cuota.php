@@ -159,6 +159,20 @@ class Control_cuota extends Controller
         }
         return redirect()->route('cuota.index')->with('success', 'Remesa procesada correctamente. Se han creado las cuotas.');        // return $this->index();
     }
+    
+    public function mostrar_pagar($id){
+        $cuota = Cuota::find($id);
+        return view('pago_cuota', ['cuota' => $cuota]);
+    }
+
+    // public function pagar(string $id){
+    //     $cuota = Cuota::find($id);
+    //     $cuota->pagada = "Si";
+    //     $cuota->fecha_pago = now();
+    //     $cuota->save();
+    //     return redirect()->route('cuota.index')->with('success', 'Cuota pagada correctamente.');
+    // }
+
 
     public function crearFactura(string $id){
         $cuota = Cuota::find($id);
